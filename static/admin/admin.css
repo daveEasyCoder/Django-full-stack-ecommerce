@@ -1,0 +1,66 @@
+
+.forms{
+    padding: 30px;
+    width: 300px;
+    /* padding-top: 0; */
+    margin: auto;
+    margin-top: 50px;
+    box-shadow: 0 0 8px rgba(183, 183, 183, 0.3);
+}
+.forms-signup-title{
+    padding: 8px;
+    background-color: rgb(234, 234, 234);
+    text-align: center;
+}
+.input-box{
+    margin-bottom: 14px;
+}
+.input-box label{
+    font-size: 13px;
+    color: rgb(71, 71, 71);
+    font-weight: bold;
+    letter-spacing: 0.4px;
+}
+.input-box input{
+    width: 100%;
+    border: 1.4px solid rgb(237, 237, 237);
+    outline: none;
+    border-radius: 3px;
+    margin-top: 6px;
+    padding: 8px 5px;
+}
+.input-box input::placeholder{
+    color: gray;
+    font-size: 12px;
+}
+.input-box input:focus{
+    border-color: white;
+    box-shadow: 0 0 5px rgba(1, 131, 246, 0.5);
+}
+.signin-submit-btn{
+    background-color: green;
+    color: white;
+    padding: 6px 0;
+    width: 90%;
+    border-radius: 30px;
+    cursor: pointer;
+    border: none;
+    transition: background-color .2s;
+    margin-top: 5px;
+    margin-bottom: 4px;
+}
+.signin-submit-btn:hover{
+   background-color: rgb(2, 171, 2);
+}
+.already-account-link{
+    text-decoration: none;
+    font-size: 12px;
+}
+.error-display{
+    background-color: rgb(255, 207, 207);
+    color: black;
+    padding: 10px;
+    font-size: 12px;
+    width: 100%;
+    text-align: center;
+}

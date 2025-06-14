@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'cart.css' %}">
+
+   <div class="cart">
+    <div>
+        <div class="cart-content">
+            {% for cart in carts %}
+                <div class="cart-item">
+                    <img class="cart-item-img" src="{{cart.product.image.url}}" alt="">
+                    <div class="cart-item-info">
+                        <p class="cart-item-info-name">{{cart.product.name}}</p>
+                        <p class="cart-item-info-price">price: <span>${{cart.product.price}}</span></p>
+                    </div>
+                    <div class="cart-item-update-btn">
+                        <a href="{% url 'updateCart' cart.id %}?action=increase">+</a>
+                        <div>{{cart.quantity}}</div>
+                        <a href="{% url 'updateCart' cart.id %}?action=decrease" >-</a>
+                    </div>
+                    <div style="text-align: end;" class="cart-item-cancel-btn">
+                       <a href="{% url 'deleteCart' cart.id %}">Remove</a>
+                    </div>
+                </div>
+            
+            {% endfor %}
+        </div>
+        <div class="Continue-shopping">
+            <a href="/"><span style="padding-right: 5px;">&#10094</span>  Continue Shopping</a>
+        </div>
+    </div>
+
+    <div class="summary-container" style="max-width: 300px;border: 1px solid rgb(211, 211, 211);padding: 12px;border-radius: 4px;">
+        <h2 style="margin: 6px;color: rgb(54, 54, 54);">Order summary</h2>
+        <div class="order-summary">
+            <div class="order-summary-row">
+                <div>Total item:</div>
+                <div>{{totalItem}}</div>
+            </div>
+            <div class="order-summary-row">
+                <div>Total Price:</div>
+                <div>${{totalPrice}}</div>
+            </div>
+        </div>
+        <hr>
+        <div style="display: flex;align-items: center;justify-content: center;text-align: center;margin-top: 16px;">
+            <a class="checkout-order" href="">Check out</a>
+        </div>
+    </div>
+   </div>
+ 
+{%  endblock %}

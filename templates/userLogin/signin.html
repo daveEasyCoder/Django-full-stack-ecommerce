@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sign in</title>
+<style>
+    body{
+        font-family: sans-serif;
+    }
+.forms{
+    padding: 30px;
+    width: 300px;
+    /* padding-top: 0; */
+    margin: auto;
+    margin-top: 50px;
+    box-shadow: 0 0 8px rgba(183, 183, 183, 0.4);
+}
+.forms-signup-title{
+    padding: 8px;
+    background-color: rgb(234, 234, 234);
+    text-align: center;
+}
+.input-box{
+    margin-bottom: 14px;
+}
+.input-box label{
+    font-size: 13px;
+    color: rgb(71, 71, 71);
+    font-weight: bold;
+    letter-spacing: 0.4px;
+}
+.input-box input{
+    width: 100%;
+    border: 1.4px solid rgb(237, 237, 237);
+    outline: none;
+    margin-top: 6px;
+    padding: 8px 5px;
+}
+.input-box input::placeholder{
+    color: gray;
+    font-size: 12px;
+}
+.input-box input:focus{
+    border-color: white;
+    box-shadow: 0 0 5px rgba(1, 131, 246, 0.5);
+}
+.signin-submit-btn{
+    color: white;
+    padding: 6px 0;
+    width: 90%;
+    cursor: pointer;
+    border: none;
+    transition: background-color .2s;
+    margin-top: 5px;
+    margin-bottom: 4px;
+    background-color: rgb(6, 64, 140);
+    margin-bottom: 15px;
+    border-radius: 2px;
+
+}
+.signin-submit-btn:hover{
+    background-color: rgb(6, 79, 176);
+}
+.error-display{
+    background-color: rgb(255, 207, 207);
+    color: black;
+    padding: 10px;
+    font-size: 12px;
+    width: 100%;
+    text-align: center;
+}
+@media(max-width:500px){
+    .forms{
+       box-shadow: none;
+    }
+}
+</style>
+</head>
+<body>
+
+<form action="{% url 'signin' %}" method="POST" class="forms">
+    {% csrf_token %}
+    <h1 class="forms-signup-title">Sign in</h1>
+    {% for msg in messages %}
+        {% if messages %}
+        <div class="error-msg" style="background-color: rgb(250, 219, 219);padding: 4px;font-size: 13px;padding: 9px;display: flex;justify-content: space-between;align-items: center;margin-top: 1px;margin-bottom: 16px;">
+            <p style="margin: 0;">{{msg}}</p>
+            <span onclick="closeErroMsg()" style="cursor: pointer;">X</span>
+        </div>
+        {% endif %}
+    {% endfor %}
+        
+    <div class="input-box">
+        <label for="">Username</label><br>
+        <input type="text" required placeholder="Username" name="uname" />
+    </div>
+    <div class="input-box">
+        <label for="">Password</label><br>
+        <input type="password" required placeholder="Enter Password" name="password" />
+    </div>
+    <input class="signin-submit-btn" type="submit" value="Sign in"></input>
+
+    <a style="font-size: 13px;" href="{% url 'signup' %}">Have no account?</a>
+</form>
+
+
+<script>
+    const closeErroMsg = () => {
+       document.querySelector('.error-msg').style.display = "none";
+    }
+</script>
+</body>
+</html>

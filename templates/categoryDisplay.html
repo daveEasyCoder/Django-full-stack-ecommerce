@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'toastNotification.css' %}">
+
+<style>
+.product,.category-back{
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    max-width: 950px;
+    gap: 15px;
+    margin: auto;
+    margin-top: 50px;
+}
+
+.product-item-name{
+    font-weight: bold;
+    margin-bottom: 0;
+}
+.product-item-rating{
+    margin-bottom: 0;
+    margin-top: 4px;
+    width:64px;
+}
+
+.product-item-price{
+    font-size: 14px;
+    font-weight: bold;
+    color: rgb(39, 39, 39);
+    margin-top: 8px;
+}
+.product-item-buttons a{
+    padding: 6px 13px;
+    border-radius: 4px;
+    color: white;
+    text-decoration: none;
+    font-size: 12px;
+}
+.product-item-add-to-cart{
+    background-color: green;
+    border: none;
+    padding: 6px 13px;
+    border-radius: 4px;
+    color: white;
+    font-size: 12px;
+    cursor: pointer;
+}
+.product-item-add-to-cart:hover{
+    background-color: rgb(0, 160, 0);
+    transition: background-color 0.15s;
+}
+.product-item-add-to-cart:active{
+    background-color: green;
+}
+.product-item-view{
+    background-color: rgb(106, 106, 106);
+}
+.product-item-info{
+    padding: 4px 4px 19px 15px;
+}
+.product-item-image img{
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+</style>
+<link rel="stylesheet" href="">
+
+  <div style="padding-top: 40px;">
+    <h2 style="text-align: center;text-shadow: 0 0 4px rgb(164, 164, 164);">{{category.name}}</h2>
+    <div class="product">
+        {% if products %}
+            {% for product in products %}
+            <div class="product-item">
+                <div class="product-item-image">
+                    <img src="{{product.image.url}}" alt="">
+                </div>
+                <div class="product-item-info">
+                <p class="product-item-name">{{product.name}}</p>
+                <img class="product-item-rating" src="/media/productImage/rating-40.png" alt="">
+                <p class="product-item-price">${{product.price}}</p>
+                <div class="product-item-buttons">
+                    <button class="product-item-add-to-cart" data-product-id="{{product.id}}">Add to Cart</button>
+                    <a class="product-item-view" href="{% url 'details' product.id %}">View</a>
+                </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% else %}
+        <div style="grid-column: 1/5;text-align: center;font-weight: bold;color: rgb(82, 82, 82);font-size: 15px;padding-top: 40px;">Oops! There is No Product with this Category</div>
+    {% endif %}
+    </div>
+    <a class="category-back" href="{% url 'category' %}">Back</a>
+  </div>
+
+
+    <!-- =========TOAST NOTIFICATION============ -->
+    <div class="toast-notification">
+        <div class="toast-notification-box">
+            <p>Added successfully</p>
+        </div>
+     </div>
+
+  <script type="text/javascript">
+
+    document.addEventListener("DOMContentLoaded",function(){
+        const AddToCartbtn = document.querySelectorAll(".product-item-add-to-cart")
+
+        AddToCartbtn.forEach((btn) => {
+           btn.addEventListener('click',function(){
+             const productId = this.getAttribute("data-product-id")
+             
+             fetch("{% url 'addToCart' %}",{
+                 method :"POST",
+                 headers: {
+                    "Content-Type":"application/json",
+                    "X-CSRFToken": "{{csrf_token}}"
+                 },
+                 body: JSON.stringify({product_id:productId})
+             })
+             .then(response => response.json())
+             .then(data => {
+                if(data.success){
+                    showNotification()
+                }
+             })
+           })
+        })
+
+        function showNotification(){
+            document.querySelector('.toast-notification').classList.add("active")
+
+            setTimeout(() => {
+                document.querySelector('.toast-notification').classList.remove("active")
+            },3500)
+        }
+    })
+  </script>
+{% endblock content %}

@@ -1,0 +1,53 @@
+body{
+    font-family: "Roboto",Arial;
+    margin: 0;
+  }
+  .message-display{
+    padding: 10px 30px;
+    max-width: 600px;
+    margin: auto;
+    margin-bottom: 3px;
+    font-size: 13px;
+    text-align: center;
+  }
+  .admin-add{
+    box-shadow: 0 0 5px rgba(164, 164, 164, 0.4);
+    padding: 20px 30px;
+    max-width: 600px;
+    color: black;
+    background-color: white;
+    margin: auto;
+  }
+
+  .form-control{
+    padding: 9px 9px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 3px;
+    font-family: "Roboto";  
+    outline: none;
+    border: 1px solid rgb(211, 211, 211);
+    font-family: "Roboto",Arial;
+  }
+  .form-control:focus{
+    box-shadow: 0 0 5px rgb(137, 137, 255);
+    border-color: white;
+  }
+  .admin-add-product-btn{
+    background-color: hsl(213, 94%, 25%);
+    padding: 7px 0;
+    width: 100%;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 2px;
+    margin-top: 9px;
+  }
+  .admin-add-product-btn:hover{
+    background-color: hsl(213, 96%, 30%);
+  }
+  .admin-add-title{
+    background-color: rgb(237, 237, 237);
+    padding: 15px 0px;
+    text-align: center;
+  }

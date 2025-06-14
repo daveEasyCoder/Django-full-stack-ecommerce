@@ -1,0 +1,112 @@
+{% extends 'customAdmin/AdminBase.html' %}
+
+
+{% block content %}
+<style>
+    body{
+        background-color: rgb(242, 242, 242);
+        overflow-x: hidden;
+    }
+
+    .admin-products{
+       display: grid;
+       grid-template-columns: repeat(4,1fr);
+       max-width: 1100px;
+       gap: 10px;
+       margin: auto;
+       background-color: white;
+       padding: 15px;
+       border-radius: 4px;
+    }
+    .admin-product-header{
+        display: flex;
+        justify-content: space-between;
+        max-width: 1100px;
+        margin: auto;
+        padding: 0 15px 16px 15px;
+    }
+    .create-new{
+        padding: 6px 16px;
+        background-color: hsl(213, 96%, 30%);
+        text-decoration: none;
+        border-radius: 2px;
+        font-size: 13px;
+        color: white;
+    }
+    .create-new:hover{
+        background-color: hsl(213, 96%, 38%);
+    }
+    .admin-products-item{
+       border-radius: 4px;
+       padding: 30px 20px;
+       border: 1px solid rgba(167, 167, 167, 0.4);
+    }
+    .admin-products-item-img{
+        width: 85%;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 2px;
+    }
+    .admin-product-items-name{
+        font-size: 18px;
+        font-weight: bold;
+        color: rgb(60, 60, 60);
+        margin-top: 12px;
+    }
+    .a-btn{
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 6px 16px;
+        border-radius: 3px;
+        border: 1px solid rgb(209, 209, 209);
+        cursor: pointer;
+    }
+    .a-btn i{
+        font-size: 11px;
+        margin-left: 6px;
+    }
+    .admin-product-items-update-btn{
+        color: gray;
+    }
+    .admin-product-items-delete-btn{
+        color: rgb(255, 46, 46);
+        transition: 0.15s;
+    }
+    @media(max-width:1100px){
+     .admin-products{
+       grid-template-columns: repeat(3,1fr);
+       max-width: 750px;
+    }
+    }
+    @media(max-width:880px){
+     .admin-products{
+       grid-template-columns: repeat(2,1fr);
+       max-width: 500px;
+
+    }
+    }
+    
+</style>
+
+
+<div class="admin-product-header">
+    <div style="font-weight: bold;">Category</div>
+    <div><a class="create-new" href="{% url 'addProducts' %}">+ Create New</a></div>
+</div>
+<div class="admin-products" >
+    {% for c in category %}
+      <div class="admin-products-item">
+        <div class="product-image-container">
+            <img class="admin-products-item-img" src="{{c.image.url}}" alt="">
+        </div>
+        <div style="white-space: nowrap;">
+            <p class="admin-product-items-name">{{c.name}}</p>
+            <p>${{c.price}}</p>
+            <a href="{% url 'editProduct' c.id %}" class="a-btn admin-product-items-update-btn">Update <i class="fa-solid fa-pen"></i></a>
+            <a href="{% url 'deleteProduct' c.id %}" class="a-btn admin-product-items-delete-btn">delete<i class="fa-solid fa-trash"></i></a>
+        </div>
+      </div>
+    {% endfor %}
+</div>
+{% endblock content %}

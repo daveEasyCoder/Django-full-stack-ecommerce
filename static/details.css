@@ -1,0 +1,65 @@
+.details{
+max-width: 900px;
+margin: auto;
+margin-top: 40px;
+ border: 1px solid rgb(217, 217, 217);
+}
+
+.details-content{
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    grid-auto-rows: 450px;
+}
+.details-content-left{
+   
+}
+.details-content-left img{
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+}
+.details-content-right{
+    padding: 12px;
+}
+.details-content-right-name{
+ margin-top: 4px;
+ margin-bottom: 15px;
+}
+.details-content-right-image{
+    width: 80px;
+}
+.details-content-right h3{
+    margin-bottom: 4px;
+    margin-top: 12px;
+}
+.details-content-right-desc{
+    color: gray;
+    font-size: 13px;
+    line-height: 20px;
+}
+.details-btn-group button{
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.details-btn-group-buy-now{
+    background-color: green;
+    color: white;
+    border: 1px solid green;
+}
+.details-btn-group-add-to-cart{
+    color: green;
+    background-color: white;
+    border: 1px solid green;
+    transition: background-color .15s;
+}
+.details-btn-group-add-to-cart:hover{
+    color: white;
+    background-color: green;
+    /* border: 1px solid green; */
+}
+.details-btn-group-buy-now:hover{
+    color: green;
+    background-color: white;
+    border-color: green;
+}

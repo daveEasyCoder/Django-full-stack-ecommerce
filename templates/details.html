@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'details.css' %}">
+<link rel="stylesheet" href="{% static 'toastNotification.css' %}">
+
+ <div class="details">
+     <div class="details-content">
+        <div class="details-content-left">
+            <img src="{{product.image.url}}" alt="">
+        </div>
+        <div class="details-content-right">
+            <div>
+                <h2 class="details-content-right-name">{{product.name}}</h2>
+                <img class="details-content-right-image" src="/media/productImage/rating-40.png" alt="">
+                <p>Category: {{product.category.name}}</p>
+                <h3>${{product.price}}</h3>
+                <p class="details-content-right-desc">{{product.description}} Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam, quae similique nulla distinctio quam et quisquam, non error quaerat, sapiente eaque dolorum perferendis atque. Repellendus adipisci non maiores eius! Obcaecati?</p>
+            </div>
+            <div class="details-btn-group">
+                <button class="details-btn-group-buy-now">Buy now</button>
+                <button class="details-btn-group-add-to-cart" data-product-id = "{{product.id}}">Add to cart</button>
+            </div>
+        </div>
+     </div>
+ </div>
+
+
+     <!-- =========TOAST NOTIFICATION============ -->
+     <div class="toast-notification">
+        <div class="toast-notification-box">
+            <p>Added successfully</p>
+        </div>
+     </div>
+
+
+ <script type="text/javascript">
+
+    document.addEventListener("DOMContentLoaded",function(){
+        const btn = document.querySelector('.details-btn-group-add-to-cart')
+        btn.addEventListener('click',function(){
+        const productId = this.getAttribute("data-product-id");
+        
+        fetch("{% url 'addToCart' %}",{
+            method: "POST",
+            headers: {
+                "Content-Type":"application/json",
+                "X-CSRFToken": "{{csrf_token}}"
+            },
+            body: JSON.stringify({product_id:productId})
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+              showNotification()  
+            }
+        })
+
+
+        function showNotification(){
+            document.querySelector('.toast-notification').classList.add("active")
+
+            setTimeout(() => {
+                document.querySelector('.toast-notification').classList.remove("active")
+            },3500)
+        }
+        
+    })
+
+
+
+    
+    })
+
+ </script>
+{% endblock content %}

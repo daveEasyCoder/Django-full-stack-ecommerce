@@ -1,0 +1,27 @@
+{% extends 'customAdmin/adminBase.html' %}
+{% load static %}
+
+{% block content %}
+ 
+  <link rel="stylesheet" href="{% static 'admin/adminProduct.css' %}">
+    {% if messages %}
+      {% for msg in messages %}
+        <p class="message-display" style="background-color: rgb(225, 255, 225);">{{msg}}</p>
+      {% endfor %}
+    {% endif %}
+    <div class="admin-add">
+      <div class="admin-add-title">Add Products</div>
+      <form class="admin-add-product" action="" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p }}
+        <input class="admin-add-product-btn" type="submit" value="Add Product">
+       </form>
+    </div>
+{% endblock content %}
+
+
+
+
+
+
+

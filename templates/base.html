@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>base</title>
+    <link rel="stylesheet" href="{% static 'base/base.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-left">
+                <div class="nav-left-logo">Home</div>
+                <div>
+                    <input class="nav-input" type="text" placeholder="Search products">
+                </div>
+            </div>
+            <ul class="mobile-nav">
+                <li><a href="/">Home</a></li>
+                <li><a href="{% url 'category' %}">Category</a></li>
+                <li><a class="cart-quantity" href="{% url 'cart' %}">Cart</a></li>
+                <li><a href="{% url 'adminLogin' %}">Admin</a></li>
+                <li>
+                    <span style="height: 30px;width: 30px;border-radius: 50%; background-color: rgb(2, 84, 2);display: flex;align-items: center;justify-content: center;">{{ request.user.username|default:"User"|slice:":1" | upper }}</span>
+                </li>
+                {% if user.is_authenticated %}
+                  <li><a href="{% url 'userLogout' %}" class="Logout" href="">Logout</a></li>
+                {% endif %}
+            </ul>
+            <div class="humberger-menu">
+                <span class="row-1"></span>
+                <span class="row-2"></span>
+                <span class="row-3"></span>
+            </div>
+        </nav>
+    </header>
+
+    {% block content %}
+      <div>base</div>
+    {% endblock %}
+
+    <script>
+    
+     const humberger_menu = document.querySelector('.humberger-menu');
+     humberger_menu.addEventListener('click',function() {
+        humberger_menu.classList.toggle("active");
+        document.querySelector('.mobile-nav').classList.toggle("isvisible")
+
+     })
+    </script>
+</body>
+</html>

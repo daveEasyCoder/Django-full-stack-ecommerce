@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login page</title>
+</head>
+<body>
+    <style>
+        body{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        form{
+            box-shadow: 0 0 8px rgba(183, 183, 183, 0.4);
+            padding: 30px;
+            width: 300px;
+
+        }
+        .text-input{
+            width: 100%;
+            padding: 8px 4px;
+            outline: none;
+            box-sizing: border-box;
+            border: 1px solid rgb(214, 214, 214);
+            margin-top: 4px;
+        }
+        .text-input::placeholder{
+            font-size: 12px;
+            color: gray;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        label{
+            font-weight: bold;
+            color: rgb(54, 54, 54);
+            font-size: 14px;
+        }
+        .text-input:focus{
+            border-color: white;
+            box-shadow: 0 0 8px rgba(15, 159, 255, 0.4);
+        }
+        .Sign-up-btn{
+            border: none;
+            outline: none;
+            padding: 8px;
+            width: 100%;
+            background-color: rgb(6, 64, 140);
+            color: white;
+            cursor: pointer;
+            margin-bottom: 15px;
+            border-radius: 2px;
+        }
+        .Sign-up-btn:hover{
+            background-color: rgb(6, 79, 176);
+        }
+        @media(max-width:500px){
+            form{
+            box-shadow: none;
+            }
+        }
+    </style>
+    
+    <form action="" method="POST">
+       {% csrf_token %}
+
+        <h1 style="text-align: center;margin:0 0 24px 0;">Sign up</h1>
+        {{form.as_p}}
+       <input class="Sign-up-btn" type="submit" value="Sign up" name="" id="">
+
+       <a style="font-size: 13px;" href="{% url 'signin' %}">I have already account</a>
+       {% if messages %}
+        {% for msg in messages %}
+          {% if msg.tags == 'error' %}
+          <div class="error-msg" style="background-color: rgb(250, 219, 219);padding: 4px;font-size: 13px;padding: 9px;display: flex;justify-content: space-between;align-items: center;margin-top: 15px;">
+            <p style="margin: 0;">{{msg}}</p>
+            <span onclick="closeErroMsg()" style="cursor: pointer;">X</span>
+          </div>
+          {% else %}
+          <div class="error-msg" style="background-color: rgb(185, 233, 185);padding: 4px;font-size: 13px;padding: 9px;display: flex;justify-content: space-between;align-items: center;margin-top: 15px;">
+            <p style="margin: 0;">{{msg}}</p>
+            <span onclick="closeErroMsg()" style="cursor: pointer;">X</span>
+        </div>
+          {% endif %}
+        {% endfor %}
+    {% endif %}
+    </form>
+
+
+    <script>
+        const closeErroMsg = () => {
+           document.querySelector('.error-msg').style.display = "none";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'category.css' %}">
+  <div class="category-page">
+    <h2>CATEGORIES</h2>
+     <div class="category-content">
+      {% for category in categories %}
+         <div class="category-content-box" style="border: 1px solid rgb(225, 225, 225);">
+           <div class="category-content-box-left">
+             <h2>{{category.name}}</h2>
+             <a href="{% url 'categoryDisplay' category.id %}" class="category-item">Shop now</a>
+           </div>
+           <div class="category-content-box-inner-image">
+             <img class="" src="{{category.CategoryImage.url}}" alt="">
+           </div>
+
+        </div>
+      {% endfor %}
+     </div>
+  </div>
+
+{% endblock content%}

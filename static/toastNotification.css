@@ -1,0 +1,37 @@
+.toast-notification{
+    background-color: white;
+    padding: 12px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    position: fixed;
+    bottom: 10px;
+    right: 12px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.4);
+    color: green;
+    font-weight: bold;
+    visibility: hidden;
+    transform:translateX(100%);
+    transition: transform 0.5s;
+}
+.toast-notification.active{
+    visibility: visible;
+    transform:translateX(0%);
+}
+.toast-notification.active::after{
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: rgb(1, 151, 1);
+  animation: toast-animate 3s linear forwards;
+  animation-delay: 0.5s;
+}
+@keyframes toast-animate {
+    100%{
+        width: 0%;
+    }
+}

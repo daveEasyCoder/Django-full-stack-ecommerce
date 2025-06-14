@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin base</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+    <style>
+        body{
+            margin: 0;
+            font-family: "Roboto",Arial;
+            background-color: rgb(246, 246, 246);
+            padding-left: 245px;
+            padding-top: 90px;
+        }
+        .sidebar{
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 214px;
+            min-height: 100vh;
+            background-color: #fff;
+            box-shadow: 1px 0px 5px rgba(232, 232, 232, 0.6);
+            padding: 0 8px;
+        }
+        .sidebar-logo{
+            padding: 21px 16px;
+            margin: 0;
+            border-bottom: 1px solid rgba(179, 179, 179, 0.4);
+        }
+       .sidebar-list ul{
+            display: flex;
+            flex-direction: column;
+            padding:8px 0 0 0;
+            margin: 0;
+            list-style: none;
+        }
+        .sidebar-list ul li{
+            padding: 14px 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .sidebar-list ul li i,.sidebar-logo i{
+            margin-right: 12px;
+            font-size: 18px;
+            color: gray;
+        }
+        .sidebar-list ul li:hover{
+            background-color: hsl(213, 100%, 95%);
+            color:hsl(213, 100%, 95%);
+        }
+   
+  
+        .sidebar-list ul li a{
+           text-decoration: none;
+           color: rgb(54, 54, 54);
+           font-weight: 700;
+           font-size: 15px;
+        }
+
+        .drop-down{
+            position: relative;
+        }
+
+        .drop-down-link{
+          overflow: hidden;
+          height: 0px;
+
+        }
+
+        .drop-down-link.show{
+            height: unset;
+        }
+        .drop-down-link ul li:hover{
+           background-color: #eeeeee;
+        }
+
+        .sidebar-list ul.drop-down-link li{
+           padding: 2px 0 2px 45px;
+        }
+        
+        .sidebar-list ul.drop-down-link li a{
+           text-decoration: none;
+           color: rgb(54, 54, 54);
+           font-size: 12.5px;
+        }
+        .drop-down-arrow{
+            position: absolute;
+            right: 73px;
+            top: 52%;
+            transform: translateY(-50%);
+        }
+        .drop-down .drop-down-arrow i{
+            font-size: 15px;
+            transition: transform .3s;
+        }
+        .drop-down .active i{
+           transform: rotate(180deg);
+        }
+
+     header{
+      background-color: #fff;
+      padding: 13.5px 12px;
+      position: fixed;
+      left: 230px;
+      right: 0;
+      top: 0;
+      box-shadow: 0px 1px 5px rgba(232, 232, 232, 0.6);
+      border-left: 1px solid rgba(179, 179, 179, 0.4);
+    }
+    header nav{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .right-nav{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        white-space: nowrap;
+    }
+    .right-nav img{
+        width: 30px;
+        height: 30px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+   
+    .left-nav .input{
+        padding: 6px 4px;
+        border: none;
+        outline: none;
+        font-weight: bold;
+        color: gray;
+    }
+    .admin-logout-btn{
+        text-decoration: none;
+        font-size: 12px;
+        padding: 5px 15px;
+        outline: none;
+        background-color: hsl(213, 96%, 30%);
+        border-radius: 4px;
+        color: white;
+        transition: background-color .15s;
+    }
+    .admin-logout-btn:hover{
+        background-color: hsl(213, 96%, 38%);
+    }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-list">
+            <div class="sidebar-logo"><i class="fa-solid fa-user-tie"></i>Admin</div>
+            <ul>
+                <li><a href="{% url 'admin' %}"><i class="fa-solid fa-list"></i>Product</a></li>
+                <li class="drop-down"><a href=""><i class="fa-solid fa-table"></i>Category <span class="drop-down-arrow"><i class="fa-solid fa-chevron-down"></i></span></a></li>
+                <ul class="drop-down-link">
+                    {% for category in categories %}
+                      <li><a href="{% url 'adminCategoryDisplay' category.id %}">{{category.name}}</a></li>
+                    {% endfor %}
+                </ul>
+                <li><a href="{% url 'addProducts' %}"><i class="fa-solid fa-plus"></i>Add Product</a></li>
+                <li><a href="{% url 'addCategory' %}"><i class="fa-solid fa-plus"></i>Add Category</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+    <header>
+        <nav>
+           <div class="left-nav">
+              <input class="input" type="text" placeholder="Search..">
+           </div>
+           <div class="right-nav">
+              <img src="/media/assets/hero-bg.jpg" alt="">
+              {% if user.is_authenticated %}
+                 <a href="{% url 'adminLogout' %}" class="admin-logout-btn">Logout</a>
+              {% endif %}
+           </div>
+        </nav>
+    </header>
+
+
+    {% block content %}
+       <div>Admin Base</div>
+    {% endblock content %}
+
+
+    <script>
+        document.querySelector('.drop-down').addEventListener('click',(e) => {
+            e.preventDefault()
+            document.querySelector('.drop-down-link').classList.toggle("show");
+            document.querySelector('.drop-down-arrow').classList.toggle("active");
+        })
+    </script>
+</body>
+</html>

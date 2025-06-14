@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'admin/admin.css' %}">
+
+<form action="/customAdmin/adminLogin/" method="POST" class="forms">
+    {% csrf_token %}
+    <h1 class="forms-signup-title">Admin</h1>
+    {% for msg in messages %}
+      <div class="error-display">{{msg}}</div>
+    {% endfor %}
+    
+  <div class="input-box">
+    <label for="">Username</label><br>
+    <input type="text" required placeholder="Username" name="uname" />
+  </div>
+  <div class="input-box">
+    <label for="">Password</label><br>
+    <input type="password" required placeholder="Enter Password" name="password" />
+  </div>
+
+  <input class="signin-submit-btn" type="submit" value="Sign in"></input>
+</form>
+{% endblock content %}

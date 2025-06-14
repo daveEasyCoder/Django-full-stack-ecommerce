@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'index.css' %}">
+<link rel="stylesheet" href="{% static 'toastNotification.css' %}">
+
+<p style="text-align: center;margin: 7px;font-size: 12px; font-weight: bold;color: rgb(0, 0, 0);">50% off your first order</p>
+<!-- =====================HERO SECTION START==================== -->
+ <div class="hero-page">
+    <div class="hero">
+        <div>
+            <h2>Up to <span>40% off </span><br>watches, phones <br> & more </h2>
+            <p>save big before they ghost</p>
+            <a href="">Shop now</a>
+        </div>
+    </div>
+    <div class="hero-footer">
+        <div class="hero-footer-col">
+           <div>Hey</div>
+           <a href="">Sign in</a>
+        </div>
+        <div class="hero-footer-col">
+           <div>Save 50% Today</div>
+           <a href="">shop now</a>
+        </div>
+        <div class="hero-footer-col">
+           <div>Quality</div>
+           <a href="">Shop now</a>
+        </div>
+        <div class="hero-footer-col">
+           <div>about Us</div>
+           <a href="">visit</a>
+        </div>
+     </div>
+ </div>
+
+<!-- =====================HERO SECTION END==================== -->
+
+
+
+<!-- =====================SERVICE SECTION START==================== -->
+  <div class="service">
+    <div class="service-content">
+         <div class="service-item">
+             <div><i class="fa-solid fa-ranking-star"></i></div>
+             <h2>Quality</h2>
+             <p>We provide high-quality products that meet your expectations. Our items are carefully selected and tested to ensure durability and satisfaction.</p>
+         </div>
+         <div class="service-item">
+            <div><i class="fa-solid fa-truck"></i></div>
+            <h2>Delivery</h2>
+             <p>Fast and reliable delivery to get your orders to you on time. We work with trusted shipping partners to ensure a smooth and hassle-free experience.</p>
+         </div>
+         <div class="service-item">
+            <div><i class="fa-solid fa-money-check-dollar"></i></div>
+            <h2>Cost-Effective</h2>
+             <p>Affordable prices without compromising quality. We offer the best deals and discounts to give you great value for your money.</p>
+         </div>
+    </div>
+  </div>
+<!-- =====================SERVICE SECTION END==================== -->
+
+  <div class="product-container">
+    <h2 style="text-align: center;">All Products</h2>
+    <div class="product">
+        {% for product in products %}
+        <div class="product-item">
+            <div class="product-item-image">
+                <img src="{{product.image.url}}" alt="">
+            </div>
+            <div class="product-item-info">
+            <p class="product-item-name">{{product.name}}</p>
+            <img class="product-item-rating" src="/media/productImage/rating-40.png" alt="">
+            <p class="product-item-price">${{product.price}}</p>
+            <div class="product-item-buttons">
+                <button class="product-item-add-to-cart" data-product-id="{{product.id}}">Add to Cart</button>
+                <a class="product-item-view" href="{% url 'details' product.id %}">View</a>
+            </div>
+
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+  </div>
+
+
+<div class="footer">
+  <div class="footer-texts">
+     <p>Service</p>
+     <p>Term</p>
+     <p>Products</p>
+  </div>
+  <div class="footer-texts">
+    <p>Service</p>
+    <p>Term</p>
+    <p>Products</p>
+  </div>
+  <div class="footer-texts">
+    <p>Service</p>
+    <p>Term</p>
+    <p>Products</p>
+  </div>
+</div>
+
+
+
+  <!-- =========TOAST NOTIFICATION============ -->
+   <div class="toast-notification">
+      <div class="toast-notification-box">
+          <p>Added successfully</p>
+      </div>
+   </div>
+
+  <script type="text/javascript">
+
+    document.addEventListener("DOMContentLoaded",function(){
+        const AddToCartbtn = document.querySelectorAll(".product-item-add-to-cart")
+
+        AddToCartbtn.forEach((btn) => {
+           btn.addEventListener('click',function(){
+             const productId = this.getAttribute("data-product-id")
+             
+             fetch("{% url 'addToCart' %}",{
+                 method :"POST",
+                 headers: {
+                    "Content-Type":"application/json",
+                    "X-CSRFToken": "{{csrf_token}}"
+                 },
+                 body: JSON.stringify({product_id:productId})
+             })
+             .then(response => response.json())
+             .then(data => {
+                if(data.success){
+                    showNotification()
+                }
+             })
+           })
+        })
+
+        function showNotification(){
+            document.querySelector('.toast-notification').classList.add("active")
+
+            setTimeout(() => {
+                document.querySelector('.toast-notification').classList.remove("active")
+            },3500)
+        }
+    })
+</script>
+
+{% endblock  %}
+
