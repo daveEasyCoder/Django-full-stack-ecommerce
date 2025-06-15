@@ -18,8 +18,12 @@ A full-featured eCommerce web application built with Django. This project allows
 
 ## 📸 Screenshots
 
-### 🏠 Homepage  
-<img src="screenshoot/homepage.png" alt="Homepage" width="600"/>
+### 🏠 Hero  
+<img src="screenshoot/hero.png" alt="Homepage" width="600"/>
+
+---
+### 🏠 Product  
+<img src="screenshoot/product.png" alt="Homepage" width="600"/>
 
 ---
 
